@@ -1,0 +1,37 @@
+import matplotlib.pyplot as plt
+
+# reporting the best results per-team (and top 10)
+data ={'2011':
+        [0.25770, 0.31010, 0.35960, 0.50450],
+        '2012':
+        [0.15315, 0.26172, 0.26979, 0.27058, 0.29576, 0.33419, 0.34464],
+        '2013':
+        [0.11197, 0.12953, 0.13511, 0.13555, 0.13748, 0.13985, 0.14182,
+            0.14291, 0.15193, 0.15245],
+        '2014': 
+        [0.06656, 0.07325, 0.0806, 0.08111, 0.09508, 0.09794, 0.10222, 0.11229, 0.11326, 0.12376],
+        '2015': 
+        [0.03567, 0.03581, 0.04581, 0.04873, 0.05034, 0.05477, 0.05858, 0.06314, 0.06482, 0.06828],
+        '2016': 
+        [0.02991, 0.03031, 0.03042, 0.03171, 0.03256, 0.03291, 0.03297, 0.03351, 0.03352, 0.03416]
+        }
+
+# image net human top 5 error rate
+human=5.1/100
+
+points = []
+for k,v in data.items():
+    for x in v:
+        points.append((k,x))
+x, y = zip(*points)
+
+plt.figure(figsize=(9,11))
+plt.title('ImageNet competition results', fontsize=22)
+plt.xlabel('Year', fontsize=20)
+plt.ylabel('Error rate', fontsize=20)
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+plt.scatter(x, y, marker='o', facecolors='none', edgecolors='C0',lw=2, s=80, label='Competing systems')
+plt.plot(data.keys(), [human for _ in range(len(data))], '--', color='grey', lw=2, label='Human performance')
+plt.legend(fontsize=16)
+plt.savefig('imagenet-history.svg')
